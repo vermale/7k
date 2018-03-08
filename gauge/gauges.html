@@ -1,0 +1,563 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+		<title>Highcharts Example</title>
+
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+		<style type="text/css">
+${demo.css}
+		</style>
+		<script type="text/javascript">
+		var chart; // global	
+$(function () {
+
+    var gaugeOptions = {
+  
+        chart: {
+        		type: 'gauge',
+            plotBackgroundColor: null,
+            plotBackgroundImage: null,
+            plotBorderWidth: 0,
+            plotShadow: false,
+			margin: [15, 0, 0, 0],
+            spacing: [0,0,0,0],
+            
+        },
+
+        title: null,
+		
+		credits: {
+            enabled: false
+        },
+        
+		pane: {
+            startAngle: -150,
+            endAngle: 150,
+            background: [{
+                backgroundColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                    stops: [
+                        [0, '#FFF'],
+                        [1, '#333']
+                    ]
+                },
+                borderWidth: 0,
+                outerRadius: '109%'
+            }, {
+                backgroundColor: {
+                    linearGradient: { x1: 0, y1: 0, x2: 0, y2: 1 },
+                    stops: [
+                        [0, '#333'],
+                        [1, '#FFF']
+                    ]
+                },
+                borderWidth: 1,
+                outerRadius: '107%'
+            }, {
+                // default background
+            }, {
+                backgroundColor: '#DDD',
+                borderWidth: 0,
+                outerRadius: '105%',
+                innerRadius: '103%'
+            }]
+        },    
+
+        
+
+        // the value axis
+        yAxis: {
+            stops: [
+                [0.1, '#55BF3B'], // green
+                [0.5, '#DDDF0D'], // yellow
+                [0.9, '#DF5353'] // red
+            ],
+            lineWidth: 0,
+            minorTickInterval: 'auto',
+            tickPixelInterval: 30,
+			minorTickColor: '#666',
+			tickColor: '#666',
+            tickWidth: 3,
+			tickPosition: 'inside',
+			tickLength: 15,
+            title: {
+                y: -70
+            },
+            labels: {
+                y: 0
+            }
+        },
+
+        plotOptions: {
+            solidgauge: {
+                dataLabels: {
+                    y: 5,
+                    borderWidth: 0,
+                    useHTML: true
+                }
+            }
+        }
+    };
+
+    // The afr gauge
+    $('#container-afr').highcharts(Highcharts.merge(gaugeOptions, {
+	
+	title: {
+                text: 'afr',
+				margin : 0
+            },
+	
+	yAxis: {
+            min: 0,
+            max: 20,
+
+            minorTickWidth: 10,
+            minorTickLength: 1,
+            tickPixelInterval: 20,       
+            labels: {
+                step: 2,
+                rotation: 'auto'
+            },
+            
+            plotBands: [{
+                from: 0,
+                to: 8,
+                color: '#55BF3B' // green
+            }, {
+                from: 8,
+                to: 16,
+                color: '#DDDF0D' // yellow
+            }, {
+                from: 16,
+                to: 20,
+                color: '#DF5353' // red
+            }]
+        },
+	
+        series: [{
+            name: 'afr',
+            data: [20],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + 
+					'">{y}</span>'},
+            tooltip: {
+                valueSuffix: ' afr'
+            }
+        }]
+
+    }));
+
+    // The RPM gauge
+    $('#container-rpm').highcharts(Highcharts.merge(gaugeOptions, {
+		title: {
+            text: 'rpm',
+			margin : 0
+        },
+		yAxis: {
+            min: 0,
+            max: 7500,
+
+            minorTickWidth: 1,
+            minorTickLength: 10,
+            tickPixelInterval: 30,
+            labels: {
+                step: 2,
+                rotation: 'auto'
+            },
+            
+            plotBands: [{
+                from: 0,
+                to: 5500,
+                color: '#DDDF0D' // 
+            }, {
+                from: 5500,
+                to: 7000,
+                color: '#55BF3B' // 
+            }, {
+                from: 7000,
+                to: 7500,
+                color: '#DF5353' // 
+            }]
+        },
+        series: [{
+            name: 'RPM',
+            data: [7500],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') 
+					+ '">{y:.0f}</span>'
+            },
+            tooltip: {
+                valueSuffix: ' revolutions/min'
+            }
+        }]
+
+    })),
+
+	
+	// The batt gauge
+    $('#container-batt').highcharts(Highcharts.merge(gaugeOptions, {
+		title: {
+            text: 'batt',
+			margin : 0
+        },
+		yAxis: {
+            min: 0,
+            max: 16,
+
+            minorTickWidth: 1,
+            minorTickLength: 10,
+            tickPixelInterval: 30,
+            labels: {
+                step: 2,
+                rotation: 'auto'
+            },
+            plotBands: [{
+                from: 0,
+                to: 10,
+                color: '#DDDF0D' // 
+            }, {
+                from: 10,
+                to: 14,
+                color: '#55BF3B' // 
+            }, {
+                from: 14,
+                to: 16,
+                color: '#DF5353' // 
+            }]
+        },
+        series: [{
+            name: 'batt',
+            data: [16],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') 
+					+ '">{y:.0f}</span>'
+            },
+            tooltip: {
+                valueSuffix: ' revolutions/min'
+            }
+        }]
+
+    })),
+	
+	// The adv gauge
+    $('#container-adv').highcharts(Highcharts.merge(gaugeOptions, {
+		title: {
+            text: 'adv',
+			margin : 0
+        },
+		yAxis: {
+            min: 0,
+            max: 40,
+
+            minorTickWidth: 1,
+            minorTickLength: 10,
+            tickPixelInterval: 30,
+            labels: {
+                step: 2,
+                rotation: 'auto'
+            },
+            plotBands: [{
+                from: 0,
+                to: 20,
+                color: '#DDDF0D' // 
+            }, {
+                from: 20,
+                to: 35,
+                color: '#55BF3B' // 
+            }, {
+                from: 35,
+                to: 40,
+                color: '#DF5353' // 
+            }]
+        },
+        series: [{
+            name: 'adv',
+            data: [40],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') 
+					+ '">{y:.0f}</span>'
+            },
+            tooltip: {
+                valueSuffix: ' revolutions/min'
+            }
+        }]
+
+    })),
+	
+	// The tpsacc gauge
+    $('#container-tpsacc').highcharts(Highcharts.merge(gaugeOptions, {
+		title: {
+            text: 'tpsacc',
+			margin : 0
+        },
+		yAxis: {
+            min: 0,
+            max: 10000,
+
+            minorTickWidth: 1,
+            minorTickLength: 10,
+            tickPixelInterval: 30,
+            labels: {
+                step: 2,
+                rotation: 'auto'
+            },
+            plotBands: [{
+                from: 0,
+                to: 500,
+                color: '#DDDF0D' // 
+            }, {
+                from: 500,
+                to: 800,
+                color: '#55BF3B' // 
+            }, {
+                from: 800,
+                to: 1000,
+                color: '#DF5353' // 
+            }]
+        },
+        series: [{
+            name: 'tpsacc',
+            data: [1000],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') 
+					+ '">{y:.0f}</span>'
+            },
+            tooltip: {
+                valueSuffix: ' revolutions/min'
+            }
+        }]
+
+    })),
+	
+	// The temp gauge
+    $('#container-temp').highcharts(Highcharts.merge(gaugeOptions, {
+		title: {
+            text: 'temp',
+			margin : 0
+        },
+		yAxis: {
+            min: 0,
+            max: 140,
+
+            minorTickWidth: 1,
+            minorTickLength: 10,
+            tickPixelInterval: 30,
+            labels: {
+                step: 2,
+                rotation: 'auto'
+            },
+            plotBands: [{
+                from: 0,
+                to: 80,
+                color: '#DDDF0D' // 
+            }, {
+                from: 80,
+                to: 110,
+                color: '#55BF3B' // 
+            }, {
+                from: 110,
+                to: 140,
+                color: '#DF5353' // 
+            }]
+        },
+        series: [{
+            name: 'temp',
+            data: [140],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') 
+					+ '">{y:.0f}</span>'
+            },
+            tooltip: {
+                valueSuffix: ' revolutions/min'
+            }
+        }]
+
+    })),
+	
+	// The pw gauge
+    $('#container-pw').highcharts(Highcharts.merge(gaugeOptions, {
+		title: {
+            text: 'pw',
+			margin : 0
+        },
+		yAxis: {
+            min: 0,
+            max: 100,
+
+            minorTickWidth: 1,
+            minorTickLength: 10,
+            tickPixelInterval: 30,
+            labels: {
+                step: 2,
+                rotation: 'auto'
+            },
+            plotBands: [{
+                from: 0,
+                to: 55,
+                color: '#DDDF0D' // 
+            }, {
+                from: 55,
+                to: 70,
+                color: '#55BF3B' // 
+            }, {
+                from: 70,
+                to: 100,
+                color: '#DF5353' // 
+            }]
+        },
+        series: [{
+            name: 'pw',
+            data: [100],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') 
+					+ '">{y:.0f}</span>'
+            },
+            tooltip: {
+                valueSuffix: ' revolutions/min'
+            }
+        }]
+
+    })),
+	
+	// The tps gauge
+    $('#container-tps').highcharts(Highcharts.merge(gaugeOptions, {
+		title: {
+            text: 'tps',
+			margin : 0
+        },
+		yAxis: {
+            min: 0,
+            max: 100,
+
+            minorTickWidth: 1,
+            minorTickLength: 10,
+            tickPixelInterval: 30,
+            labels: {
+                step: 2,
+                rotation: 'auto'
+            },
+            plotBands: [{
+                from: 0,
+                to: 55,
+                color: '#DDDF0D' // 
+            }, {
+                from: 55,
+                to: 70,
+                color: '#55BF3B' // 
+            }, {
+                from: 70,
+                to: 100,
+                color: '#DF5353' // 
+            }]
+        },
+        series: [{
+            name: 'tps',
+            data: [100],
+            dataLabels: {
+                format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                    ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') 
+					+ '">{y:.0f}</span>'
+            },
+            tooltip: {
+                valueSuffix: ' revolutions/min'
+            }
+        }]
+
+    })),
+	
+    // Bring life to the dials
+    setInterval(function (chart) {
+        // afr
+        var chart = $('#container-rpm').highcharts(),
+            point,
+            newVal,
+            inc;
+		if (chart) {
+            point = chart.series[0].points[0];
+            inc = Math.round((Math.random() - 0.1) * 10);
+            newVal = point.y + inc;
+
+            if (newVal < 0 || newVal > 20) {
+                newVal = point.y - inc;
+            }
+			
+            point.update(newVal);
+        }
+
+        // RPM
+        var chart = $('#container-rpm').highcharts(),
+			point,
+            newVal,
+            inc;
+        if (chart) {
+            point = chart.series[0].points[0];
+			inc = Math.round((Math.random() - 100) * 10);
+              newVal = point.y + inc;
+
+            if (newVal < 0 || newVal > 7500) {
+                newVal = point.y - inc;
+            }
+			point.update(2500);
+		
+		$.ajax({
+        	url: 'live.php',
+        	success: function(data)  {
+
+            		//chart.series[0].addPoint(data);
+	    		point = chart.series[0].points[0];
+            		point.update(data);
+        	},
+            		cache: false
+        	});
+
+			point.update(data);
+        }
+    }, 1000);
+
+
+});
+		</script>
+	</head>
+	<body>
+<script src="https://code.highcharts.com/highcharts.js"></script>
+<script src="https://code.highcharts.com/highcharts-more.js"></script>
+
+
+
+<div >
+	<TABLE>
+		 <TR>
+		  <TD ROWSPAN=2><div id="container-tps"    style="width: 350px; height: 350px"></div></TD>
+		  <TD><div id="container-temp"   style="width: 180px; height: 180px"></div></TD>
+		  <TD ROWSPAN=2><div id="container-rpm"    style="width: 350px; height: 350px"></div></TD> 
+		 </TR>
+		 <TR>
+		  <TD><div id="container-batt"   style="width: 180px; height: 180px"></div></TD>
+		 </TR>
+	</table>
+	<table>
+		 <tr>
+		 <td><div id="container-afr"    style="width: 220px; height: 220px"></div></td>
+		 <td><div id="container-pw"     style="width: 220px; height: 220px"></div></td>
+		 <td><div id="container-adv"    style="width: 220px; height: 220px"></div></td>
+		 <td><div id="container-tpsacc" style="width: 220px; height: 220px"></div></td>
+		 </tr>
+	</TABLE>
+	
+	
+	
+</div>
+
+
+	</body>
+</html>
+
